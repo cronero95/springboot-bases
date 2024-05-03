@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "myurls.production-database",
+  "type": "java.lang.String",
+  "description": "The production database URL"
+}]}
