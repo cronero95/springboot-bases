@@ -9,6 +9,7 @@ import com.springbootprojects.myfirstproject.heroesandvillains.services.IHeroesS
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class HeroesController {
 
     private final IHeroesService heroesService;
+
+    @Value("${myurls.heroes.production-database}")
+    private String databaseUrl;
+
+    @Value("#{${heroes.heroes-list}}")
+    private List<String> batman;
 
     public HeroesController(
         IHeroesService heroesService

@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "myurls.production-database",
-  "type": "java.lang.String",
-  "description": "The production database URL"
-}]}
+{"properties": [
+  {
+    "name": "myurls.heroes.production-database",
+    "type": "java.lang.String",
+    "description": "The production database URL for heroes"
+  },
+  {
+    "name": "heroes.heroes-list",
+    "type": "java.lang.String",
+    "description": "A description for 'heroes.heroes-list'"
+  }
+]}
