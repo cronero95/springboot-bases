@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import com.springbootprojects.myfirstproject.EnvironmentData;
 import com.springbootprojects.myfirstproject.HeroesQuotes;
 import com.springbootprojects.myfirstproject.heroesandvillains.services.HeroesService;
 import com.springbootprojects.myfirstproject.heroesandvillains.services.HeroesServiceMockup;
@@ -15,6 +16,11 @@ import com.springbootprojects.myfirstproject.heroesandvillains.services.Villains
 
 @Configuration
 public class HeroesAndVillainsAppConfig {
+
+    @Bean
+    EnvironmentData environmentData() {
+        return new EnvironmentData();
+    }
 
     @Bean
     HeroesQuotes heroesQuotes() {

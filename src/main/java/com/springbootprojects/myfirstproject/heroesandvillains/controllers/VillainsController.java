@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("villains")
 public class VillainsController {
 
-    private IVillainsService villainsService;
+    private final IVillainsService villainsService;
 
-    public VillainsController(IVillainsService villainsService) {
+    public VillainsController(
+        IVillainsService villainsService
+    ) {
         this.villainsService = villainsService;
     }
 
