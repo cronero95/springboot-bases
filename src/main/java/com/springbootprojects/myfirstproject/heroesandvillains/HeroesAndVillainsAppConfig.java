@@ -28,6 +28,7 @@ public class HeroesAndVillainsAppConfig {
     }
 
     @Bean
+    @Primary
     IHeroesService productionHeroesService() {
         return new HeroesService();
     }
@@ -38,7 +39,6 @@ public class HeroesAndVillainsAppConfig {
     }
 
     @Bean
-    @Primary
     IHeroesService developmentHeroesService() {
         return new HeroesServiceMockup();
     }
