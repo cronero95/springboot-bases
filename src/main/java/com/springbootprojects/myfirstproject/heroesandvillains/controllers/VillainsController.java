@@ -4,12 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootprojects.myfirstproject.heroesandvillains.models.VillainModel;
-import com.springbootprojects.myfirstproject.heroesandvillains.services.IVillainsService;
+import com.springbootprojects.myfirstproject.records.VillainRecord;
 
-import java.util.List;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,26 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("villains")
 public class VillainsController {
 
-    private final IVillainsService villainsService;
-
-    public VillainsController(
-        IVillainsService villainsService
-    ) {
-        this.villainsService = villainsService;
-    }
-
-    @GetMapping("search")
-    public VillainModel getVillain(@RequestParam String villain) {
-        if (villain.equals("joker")) {
-            return new VillainModel("Joker", "Batman");
-        } else {
-            throw new IllegalArgumentException("Villain not found.");
-        }
+    @GetMapping()
+    public VillainModel getVillain() {
+        return new VillainModel("Joker", "Batman");
+        
     }
     
-    @PostMapping("save")
-    public List<String> saveVillains(@RequestBody List<VillainModel> villains) {
-        return villainsService.saveVillains(villains);
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public VillainRecord createVillain(
+        @RequestBody VillainRecord villain
+    ) {
+        return villain;
     }
     
 }

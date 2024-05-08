@@ -1,7 +1,13 @@
 package com.springbootprojects.myfirstproject.heroesandvillains.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class VillainModel {
-    public String villainName, villainEnemy;
+    @JsonProperty("name")
+    public String villainName;
+
+    @JsonProperty("enemy")
+    public String villainEnemy;
 
     public VillainModel(String villainName, String villainEnemy) {
         this.villainName = villainName;
