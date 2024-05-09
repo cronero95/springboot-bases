@@ -9,8 +9,15 @@ public class VillainModel {
     @JsonProperty("enemy")
     public String villainEnemy;
 
-    public VillainModel(String villainName, String villainEnemy) {
+    public int power;
+
+    public VillainModel(
+        String villainName,
+        String villainEnemy,
+        int power
+    ) {
         this.villainName = villainName;
         this.villainEnemy = villainEnemy;
+        this.power = power;
     }
 }
