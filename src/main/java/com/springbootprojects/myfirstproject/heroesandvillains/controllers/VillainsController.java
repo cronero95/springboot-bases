@@ -2,16 +2,17 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.springbootprojects.myfirstproject.dtos.VillainDto;
 import com.springbootprojects.myfirstproject.heroesandvillains.models.VillainModel;
 import com.springbootprojects.myfirstproject.records.VillainRecord;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -35,18 +36,42 @@ public class VillainsController {
         return villain;
     }
     
-    @PostMapping("dto")
-    public String createVillainDto(
-        @RequestBody VillainDto villain
+    @GetMapping("marvel/{name}")
+    public VillainModel getMarvelVillain(
+        @PathVariable("name") String villainName
     ) {
-        return villain.toString();
+        if (villainName.equals("magneto")) {
+            return new VillainModel(
+                "Magneto", "X-Men", 320
+            );
+        } else if (villainName.equals("loki")) {
+            return new VillainModel(
+                "Loki", "Thor", 300
+            );
+        } else {
+            return new VillainModel(
+                "Unknown", "Unknown", 0
+            );
+        }
     }
     
-    @PostMapping("record")
-    public String createVillainRecord(
-        @RequestBody VillainRecord villain
+    @GetMapping("marvel")
+    public VillainModel postMethodName(
+        @RequestParam("name") String villainName
     ) {
-        return villain.toString();
+        if (villainName.equals("magneto")) {
+            return new VillainModel(
+                "Magneto", "X-Men", 320
+            );
+        } else if (villainName.equals("loki")) {
+            return new VillainModel(
+                "Loki", "Thor", 300
+            );
+        } else {
+            return new VillainModel(
+                "Unknown", "Unknown", 0
+            );
+        }
     }
     
 }
