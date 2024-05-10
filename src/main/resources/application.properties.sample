@@ -1,0 +1,14 @@
+spring.application.name=myfirstproject
+
+logging.level.com.springbootprojects.myfirstproject: DEBUG
+
+server.error.include-message: always
+
+myurls.heroes.production-database=production database
+
+spring.profiles.active=dev
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+spring.datasource.driver-class-name=org.postgresql.Driver
