@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject.dtos;
+package com.springbootprojects.myfirstproject.heroesandvillains.dtos;
 
 public class VillainDto {
     private String villainName, villainEnemy;

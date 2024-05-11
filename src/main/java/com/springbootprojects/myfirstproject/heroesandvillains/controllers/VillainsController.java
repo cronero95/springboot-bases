@@ -3,7 +3,7 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.springbootprojects.myfirstproject.heroesandvillains.models.VillainModel;
-import com.springbootprojects.myfirstproject.records.VillainRecord;
+import com.springbootprojects.myfirstproject.heroesandvillains.records.VillainRecord;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
