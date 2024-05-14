@@ -3,8 +3,8 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springbootprojects.myfirstproject.Heroe;
-import com.springbootprojects.myfirstproject.HeroeRepository;
+import com.springbootprojects.myfirstproject.Hero;
+import com.springbootprojects.myfirstproject.HeroRepository;
 
 import java.util.List;
 
@@ -14,31 +14,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
-
-
-
 @RestController
 @RequestMapping("heroes")
 public class HeroesController {
 
-    private final HeroeRepository heroeRepository;
+    private final HeroRepository heroeRepository;
 
     public HeroesController(
-        HeroeRepository heroeRepository
+        HeroRepository heroeRepository
     ) {
         this.heroeRepository = heroeRepository;
     }
 
     @GetMapping()
-    public List<Heroe> findAllHeroes() {
+    public List<Hero> findAllHeroes() {
         return heroeRepository.findAll();
     }
     
 
     @GetMapping("id/{heroe-id}")
-    public Heroe findHeroeById(
+    public Hero findHeroeById(
         @PathVariable("heroe-id") Integer id
     ) {
         return heroeRepository.findById(id)
@@ -46,15 +41,8 @@ public class HeroesController {
     }
     
     @PostMapping()
-    public Heroe createHero(@RequestBody Heroe heroe) {
+    public Hero createHero(@RequestBody Hero heroe) {
         return heroeRepository.save(heroe);
-    }
-    
-    @GetMapping("publisher/{publisher}")
-    public List<Heroe> findHeroesByPublisher(
-        @PathVariable String publisher
-    ) {
-        return heroeRepository.findAllByPublisherContaining(publisher);
     }
     
     @DeleteMapping("id/{hero-id}")

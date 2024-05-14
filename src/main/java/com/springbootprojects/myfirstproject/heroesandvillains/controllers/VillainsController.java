@@ -2,76 +2,51 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.springbootprojects.myfirstproject.heroesandvillains.models.VillainModel;
-import com.springbootprojects.myfirstproject.heroesandvillains.records.VillainRecord;
 
-import org.springframework.http.HttpStatus;
+import com.springbootprojects.myfirstproject.Villain;
+import com.springbootprojects.myfirstproject.VillainRepository;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @RestController
 @RequestMapping("villains")
 public class VillainsController {
 
+    private final VillainRepository villainRepository;
+
+    public VillainsController(VillainRepository villainRepository) {
+        this.villainRepository = villainRepository;
+    }
+
     @GetMapping()
-    public VillainModel getVillain() {
-        return new VillainModel(
-            "Joker", "Batman", 100
-        );
-        
+    public List<Villain> findAllVillains() {
+        return villainRepository.findAll();
+    }
+    
+    @GetMapping("id/{villain-id}")
+    public Villain findVillainById(
+        @PathVariable("villain-id") Integer id
+    ) {
+        return villainRepository.findById(id)
+            .orElse(null);
     }
     
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public VillainRecord createVillain(
-        @RequestBody VillainRecord villain
-    ) {
-        return villain;
+    public Villain createVillain(@RequestBody Villain villain) {
+        return villainRepository.save(villain);
     }
     
-    @GetMapping("marvel/{name}")
-    public VillainModel getMarvelVillain(
-        @PathVariable("name") String villainName
+    @DeleteMapping("id/{villain-id}")
+    public String deleteVillainById(
+        @PathVariable("villain-id") Integer id
     ) {
-        if (villainName.equals("magneto")) {
-            return new VillainModel(
-                "Magneto", "X-Men", 320
-            );
-        } else if (villainName.equals("loki")) {
-            return new VillainModel(
-                "Loki", "Thor", 300
-            );
-        } else {
-            return new VillainModel(
-                "Unknown", "Unknown", 0
-            );
-        }
+        villainRepository.deleteById(id);
+        return "The villain with id: "+id+" was deleted";
     }
-    
-    @GetMapping("marvel")
-    public VillainModel postMethodName(
-        @RequestParam("name") String villainName
-    ) {
-        if (villainName.equals("magneto")) {
-            return new VillainModel(
-                "Magneto", "X-Men", 320
-            );
-        } else if (villainName.equals("loki")) {
-            return new VillainModel(
-                "Loki", "Thor", 300
-            );
-        } else {
-            return new VillainModel(
-                "Unknown", "Unknown", 0
-            );
-        }
-    }
-    
 }
