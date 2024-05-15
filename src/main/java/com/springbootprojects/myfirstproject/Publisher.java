@@ -36,7 +36,9 @@ public class Publisher {
     @OneToMany(
         mappedBy = "publisher"
     )
-    @JsonManagedReference
+    @JsonManagedReference(
+        value = "publisher_ref"
+    )
     private List<Villain> villains;
 
     public Publisher() {}
@@ -59,5 +61,10 @@ public class Publisher {
     public List<Hero> getHeroes() { return heroes;}
     public void setHeroes(List<Hero> heroes) {
         this.heroes = heroes;
+    }
+
+    public List<Villain> getVillains() { return villains; }
+    public void setVillains(List<Villain> villains) {
+        this.villains = villains;
     }
 }

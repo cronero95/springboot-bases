@@ -29,7 +29,9 @@ public class Villain {
     @JoinColumn(
         name = "publisher_id", referencedColumnName = "id"
     )
-    @JsonBackReference
+    @JsonBackReference(
+        value = "publisher_ref"
+    )
     private Publisher publisher;
 
     @OneToOne
