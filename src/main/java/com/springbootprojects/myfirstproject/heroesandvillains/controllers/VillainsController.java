@@ -3,8 +3,12 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springbootprojects.myfirstproject.Hero;
+import com.springbootprojects.myfirstproject.Publisher;
 import com.springbootprojects.myfirstproject.Villain;
+import com.springbootprojects.myfirstproject.VillainDto;
 import com.springbootprojects.myfirstproject.VillainRepository;
+import com.springbootprojects.myfirstproject.VillainResponseDto;
 
 import java.util.List;
 
@@ -38,8 +42,32 @@ public class VillainsController {
     }
     
     @PostMapping()
-    public Villain createVillain(@RequestBody Villain villain) {
-        return villainRepository.save(villain);
+    public VillainResponseDto createVillain(@RequestBody VillainDto villainDto) {
+        var villain = dtoToVillain(villainDto);
+        villainRepository.save(villain);
+        return villainToDto(villain);
+    }
+
+    private Villain dtoToVillain(VillainDto villainDto) {
+        var villain = new Villain();
+        villain.setName(villainDto.name());
+        
+        var hero = new Hero();
+        hero.setId(villainDto.heroId());
+        villain.setHero(hero);
+
+        var publisher = new Publisher();
+        publisher.setId(villainDto.publisherId());
+        villain.setPublisher(publisher);
+
+        return villain;
+    }
+
+    private VillainResponseDto villainToDto(Villain villain) {
+        var villainResponseDto = new VillainResponseDto(
+            villain.getName()
+        );
+        return villainResponseDto;
     }
     
     @DeleteMapping("id/{villain-id}")
