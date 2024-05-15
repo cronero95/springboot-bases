@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootprojects.myfirstproject.Hero;
+import com.springbootprojects.myfirstproject.HeroDto;
 import com.springbootprojects.myfirstproject.HeroRepository;
+import com.springbootprojects.myfirstproject.HeroResponseDto;
+import com.springbootprojects.myfirstproject.Publisher;
 
 import java.util.List;
 
@@ -41,8 +44,29 @@ public class HeroesController {
     }
     
     @PostMapping()
-    public Hero createHero(@RequestBody Hero heroe) {
-        return heroeRepository.save(heroe);
+    public HeroResponseDto createHero(@RequestBody HeroDto heroDto) {
+        var hero = dtoToHero(heroDto);
+        heroeRepository.save(hero);
+        return heroToDto(hero);
+    }
+
+    private Hero dtoToHero(HeroDto heroDto) {
+        var hero = new Hero();
+        hero.setName(heroDto.name());
+        hero.setCity(heroDto.city());
+        
+        var publisher = new Publisher();
+        publisher.setId(heroDto.publisherId());
+        hero.setPublisher(publisher);
+
+        return hero;
+    }
+
+    private HeroResponseDto heroToDto(Hero hero) {
+        var heroResponseDto = new HeroResponseDto(
+            hero.getName(), hero.getCity()
+        );
+        return heroResponseDto;
     }
     
     @DeleteMapping("id/{hero-id}")
