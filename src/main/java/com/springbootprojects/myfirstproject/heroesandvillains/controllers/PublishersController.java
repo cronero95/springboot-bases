@@ -3,7 +3,9 @@ package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootprojects.myfirstproject.Publisher;
+import com.springbootprojects.myfirstproject.PublisherDto;
 import com.springbootprojects.myfirstproject.PublisherRepository;
+import com.springbootprojects.myfirstproject.PublisherResponseDto;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,10 +43,28 @@ public class PublishersController {
     }
 
     @PostMapping()
-    public Publisher createPublisher(
-        @RequestBody Publisher publisher
+    public PublisherResponseDto createPublisher(
+        @RequestBody PublisherDto publisherDto
     ) {
-        return publisherRepository.save(publisher);
+        var publisher = dtoToPublisher(publisherDto);
+        publisherRepository.save(publisher);
+        return publisherToDto(publisher);
+    }
+
+    private Publisher dtoToPublisher(PublisherDto publisherDto) {
+        var publisher = new Publisher();
+
+        publisher.setName(publisherDto.name());
+        publisher.setFoundationYear(publisherDto.foundationYear());
+
+        return publisher;
+    }
+
+    private PublisherResponseDto publisherToDto(Publisher publisher) {
+        var publisherResponseDto = new PublisherResponseDto(
+            publisher.getName()
+        );
+        return publisherResponseDto;
     }
     
     @DeleteMapping("id/publisher-id")
