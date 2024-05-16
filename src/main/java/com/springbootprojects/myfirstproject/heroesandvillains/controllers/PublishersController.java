@@ -10,6 +10,7 @@ import com.springbootprojects.myfirstproject.PublisherResponseDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,11 @@ public class PublishersController {
     }
 
     @GetMapping()
-    public List<Publisher> findAllPublishers() {
-        return publisherRepository.findAll();
+    public List<PublisherResponseDto> findAllPublishers() {
+        return publisherRepository.findAll()
+            .stream()
+            .map(this::publisherToDto)
+            .collect(Collectors.toList());
     }
     
     @GetMapping("id/{publisher-id}")
