@@ -30,14 +30,9 @@ public class HeroService {
     }
 
     public HeroResponseDto findHeroeById(Integer id) {
-        var hero = heroRepository.findById(id)
+        return heroRepository.findById(id)
+            .map(heroMapper::heroToDtoResponse)
             .orElse(null);
-
-        if (hero == null) {
-            return new HeroResponseDto(null, null);
-        }
-
-        return heroMapper.heroToDtoResponse(hero);
     }
 
     public List<HeroResponseDto> findAllHeroes() {

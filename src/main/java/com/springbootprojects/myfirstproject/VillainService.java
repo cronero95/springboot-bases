@@ -27,14 +27,9 @@ public class VillainService {
     }
 
     public VillainResponseDto findVillainById(Integer id) {
-        var villain = villainRepository.findById(id)
+        return villainRepository.findById(id)
+            .map(villainMapper::villainToDtoResponse)
             .orElse(null);
-
-        if (villain == null) {
-            return new VillainResponseDto(null);
-        }
-
-        return villainMapper.villainToDtoResponse(villain);
     }
 
     public VillainResponseDto createVillain(VillainDto villainDto) {

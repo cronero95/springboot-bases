@@ -24,14 +24,9 @@ public class PublisherService {
     }
 
     public PublisherResponseDto findPublisherById(Integer id) {
-        var publisher = publisherRepository.findById(id)
+        return publisherRepository.findById(id)
+            .map(publisherMapper::publisherToDtoResponse)
             .orElse(null);
-
-        if (publisher == null) {
-            return new PublisherResponseDto(null);
-        }
-
-        return publisherMapper.publisherToDtoResponse(publisher);
     }
 
     public PublisherResponseDto createPublisher(PublisherDto publisherDto) {
