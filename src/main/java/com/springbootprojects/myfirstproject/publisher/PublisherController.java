@@ -1,11 +1,6 @@
-package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
+package com.springbootprojects.myfirstproject.publisher;
 
 import org.springframework.web.bind.annotation.RestController;
-
-import com.springbootprojects.myfirstproject.PublisherDto;
-import com.springbootprojects.myfirstproject.PublisherResponseDto;
-import com.springbootprojects.myfirstproject.PublisherService;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -19,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("publishers")
-public class PublishersController {
+public class PublisherController {
 
     private final PublisherService publisherService;
 
-    public PublishersController(
+    public PublisherController(
         PublisherService publisherService
     ) {
         this.publisherService = publisherService;

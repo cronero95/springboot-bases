@@ -1,11 +1,7 @@
-package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
+package com.springbootprojects.myfirstproject.villain;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.springbootprojects.myfirstproject.VillainDto;
-import com.springbootprojects.myfirstproject.VillainResponseDto;
-import com.springbootprojects.myfirstproject.VillainService;
 
 import java.util.List;
 
@@ -17,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("villains")
-public class VillainsController {
+public class VillainController {
 
     private final VillainService villainService;
 
-    public VillainsController(
+    public VillainController(
         VillainService villainService
     ) {
         this.villainService = villainService;

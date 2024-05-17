@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.publisher;
 
 public record PublisherDto(
     String name,

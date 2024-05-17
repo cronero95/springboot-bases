@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.hero;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

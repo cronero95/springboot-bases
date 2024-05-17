@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.publisher;
 
 import java.util.List;
 import java.util.stream.Collectors;

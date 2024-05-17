@@ -1,6 +1,9 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.villain;
 
 import org.springframework.stereotype.Service;
+
+import com.springbootprojects.myfirstproject.hero.Hero;
+import com.springbootprojects.myfirstproject.publisher.Publisher;
 
 @Service
 public class VillainMapper {

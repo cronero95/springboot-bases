@@ -1,8 +1,10 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.publisher;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springbootprojects.myfirstproject.hero.Hero;
+import com.springbootprojects.myfirstproject.villain.Villain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

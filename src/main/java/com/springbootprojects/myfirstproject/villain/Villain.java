@@ -1,9 +1,9 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.villain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springbootprojects.myfirstproject.hero.Hero;
+import com.springbootprojects.myfirstproject.publisher.Publisher;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,38 +15,35 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="heroes")
-public class Hero {
+@Table(name = "villains")
+public class Villain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
     @Column(
-        name = "hero_name", length = 50, 
+        name = "villain_name", length = 50, 
         nullable = false, unique = true)
     private String name;
-
-    @Column(
-        name = "hero_city", length = 50, 
-        nullable = false)
-    private String city;
-
-    @OneToOne(
-        mappedBy = "hero",
-        cascade = CascadeType.ALL
-    )
-    @JsonManagedReference
-    private Villain villain;
 
     @ManyToOne
     @JoinColumn(
         name = "publisher_id", referencedColumnName = "id"
     )
-    @JsonBackReference
+    @JsonBackReference(
+        value = "publisher_ref"
+    )
     private Publisher publisher;
 
-    public Hero() {}
+    @OneToOne
+    @JoinColumn(
+        name = "hero_id", referencedColumnName = "id"
+    )
+    @JsonBackReference
+    private Hero hero;
+
+    public Villain() {}
 
     public Integer getId() { return id; }
     public void setId(Integer id) {
@@ -58,18 +55,13 @@ public class Hero {
         this.name = name;
     }
 
-    public String getCity() { return city; }
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Publisher getPublisher() { return publisher;}
+    public Publisher getPublisher() { return publisher; }
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
-    public Villain getVillain() { return villain; }
-    public void setVillain(Villain villain) {
-        this.villain = villain;
+    public Hero getHero() { return hero; }
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 }

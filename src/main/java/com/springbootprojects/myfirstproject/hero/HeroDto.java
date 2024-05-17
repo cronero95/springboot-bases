@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.hero;
 
 public record HeroDto(
     String name,

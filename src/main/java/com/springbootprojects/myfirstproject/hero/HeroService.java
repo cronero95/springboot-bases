@@ -1,4 +1,4 @@
-package com.springbootprojects.myfirstproject;
+package com.springbootprojects.myfirstproject.hero;
 
 import java.util.List;
 import java.util.stream.Collectors;

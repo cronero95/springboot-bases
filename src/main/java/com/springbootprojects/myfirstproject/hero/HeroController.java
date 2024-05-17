@@ -1,11 +1,7 @@
-package com.springbootprojects.myfirstproject.heroesandvillains.controllers;
+package com.springbootprojects.myfirstproject.hero;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.springbootprojects.myfirstproject.HeroDto;
-import com.springbootprojects.myfirstproject.HeroResponseDto;
-import com.springbootprojects.myfirstproject.HeroService;
 
 import java.util.List;
 
@@ -17,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("heroes")
-public class HeroesController {
+public class HeroController {
 
     private final HeroService heroService;
 
-    public HeroesController(
+    public HeroController(
         HeroService heroService
     ) {
         this.heroService = heroService;
