@@ -3,9 +3,17 @@ package com.springbootprojects.myfirstproject.hero;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +45,7 @@ public class HeroController {
     
     @PostMapping()
     public HeroResponseDto createHero(
-        @RequestBody HeroDto heroDto
+        @Valid @RequestBody HeroDto heroDto
     ) {
         return heroService.createHero(heroDto);
     }
@@ -47,5 +55,20 @@ public class HeroController {
         @PathVariable("hero-id") Integer id
     ) {
         return heroService.deleteHeroById(id);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleMethodArgumentNotValidException(
+        MethodArgumentNotValidException exception
+    ) {
+        var errors = new HashMap<String, String>();
+        exception.getBindingResult().getAllErrors()
+            .forEach(error -> {
+                var errorName = ((FieldError)error).getField();
+                var errorMessage = error.getDefaultMessage();
+                errors.put(errorName, errorMessage);
+            });
+        
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
