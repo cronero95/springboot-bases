@@ -1,53 +1,52 @@
 package com.springbootprojects.myfirstproject.hero;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HeroMapperTest {
 
-    @BeforeAll
-    static void beforeAll() {
-        System.out.println(
-            "Before all test methods"
-        );
-    }
-
-    @AfterAll
-    static void afterAll() {
-        System.out.println(
-            "After all test methods"
-        );
-    }
+    private HeroMapper heroMapper;
 
     @BeforeEach
     void setUp() {
-        System.out.println(
-            "Before each test method"
-        );
+        heroMapper = new HeroMapper();
     }
 
-    @AfterEach
-    void tearDown() {
-        System.out.println(
-            "After each test method"
+    @Test
+    public void shouldMapHeroDtoToHero() {
+        HeroDto heroDto = new HeroDto(
+            "Wonder Woman", 
+            "Themyscira", 
+            2
+        );
+
+        Hero hero = heroMapper.dtoToHero(heroDto);
+
+        Assertions.assertEquals( heroDto.name(), hero.getName() );
+        Assertions.assertEquals( heroDto.city(), hero.getCity() );
+        Assertions.assertNotNull( hero.getPublisher() );
+        Assertions.assertEquals( heroDto.publisherId(), hero.getPublisher().getId() );
+    }
+    
+    @Test
+    public void should_throw_null_pointer_exception_when_heroDto_is_null() {
+        Assertions.assertThrows(
+            NullPointerException.class, 
+            ()-> heroMapper.dtoToHero(null)
         );
     }
 
     @Test
-    public void testMethod1() {
-        System.out.println(
-            "This is my first test method"
-        );
-    }
+    public void shouldMapHeroToHeroResponseDto() {
+        Hero hero = new Hero();
+        hero.setName("Wonder Woman");
+        hero.setCity("Themyscira");
 
-    @Test
-    public void testMethod2() {
-        System.out.println(
-            "This is my second test method"
-        );
+        HeroResponseDto heroResponseDto = heroMapper.heroToDtoResponse(hero);
+
+        Assertions.assertEquals(hero.getName(), heroResponseDto.name());
+        Assertions.assertEquals(hero.getCity(), heroResponseDto.city());
     }
 }
 

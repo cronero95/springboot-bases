@@ -8,6 +8,11 @@ import com.springbootprojects.myfirstproject.publisher.Publisher;
 public class HeroMapper {
 
     public Hero dtoToHero(HeroDto heroDto) {
+
+        if(heroDto == null) {
+            throw new NullPointerException("The heroDto is null");
+        }
+
         var hero = new Hero();
         hero.setName(heroDto.name());
         hero.setCity(heroDto.city());
