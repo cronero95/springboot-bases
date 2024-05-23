@@ -1,9 +1,11 @@
 package com.springbootprojects.myfirstproject.hero;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class HeroServiceTest {
@@ -39,9 +41,23 @@ public class HeroServiceTest {
         savedHero.setCity("Themyscira");
         savedHero.setId(1);
 
-        HeroResponseDto heroResponseDto = new HeroResponseDto(
-            "Wonder Woman",
-            "Themyscira"
+        Mockito.when(heroMapper.dtoToHero(heroDto))
+            .thenReturn(hero);
+
+        Mockito.when(heroRepository.save(hero))
+            .thenReturn(savedHero);
+            
+        Mockito.when(heroMapper.heroToDtoResponse(savedHero))
+            .thenReturn(new HeroResponseDto(
+                "Wonder Woman",
+                "Themyscira"
+            )
         );
+
+        HeroResponseDto heroResponseDto = heroService.createHero(heroDto);
+
+        Assertions.assertEquals(heroDto.name(), heroResponseDto.name());
+        Assertions.assertEquals(heroDto.city(), heroResponseDto.city());
+        
     }
 }
