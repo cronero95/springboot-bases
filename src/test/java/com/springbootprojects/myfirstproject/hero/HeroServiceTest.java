@@ -2,6 +2,7 @@ package com.springbootprojects.myfirstproject.hero;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,5 +108,29 @@ public class HeroServiceTest {
         Assertions.assertEquals(heroes.size(), heroResponseDtos.size());
         Mockito.verify(heroRepository, Mockito.times(1))
             .findAll();
+    }
+    
+    @Test
+    public void should_find_a_hero_by_id() {
+
+        Integer id = 1;
+
+        Hero hero = new Hero();
+        hero.setName("Superman");
+        hero.setCity("Metropolis");
+        hero.setId(1);
+
+        Mockito.when(heroRepository.findById(id))
+            .thenReturn(Optional.of(hero));
+        
+        Mockito.when(heroMapper.heroToDtoResponse(hero))
+            .thenReturn(new HeroResponseDto("Superman", "Metropolis"));
+        
+        HeroResponseDto heroResponseDto = heroService.findHeroeById(id);
+
+        Assertions.assertEquals(hero.getName(), heroResponseDto.name());
+        Assertions.assertEquals(hero.getCity(), heroResponseDto.city());
+        Mockito.verify(heroRepository, Mockito.times(1))
+            .findById(id);
     }
 }
