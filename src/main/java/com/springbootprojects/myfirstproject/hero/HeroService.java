@@ -41,4 +41,11 @@ public class HeroService {
             .map(heroMapper::heroToDtoResponse)
             .collect(Collectors.toList());
     }
+
+    public List<HeroResponseDto> findHeroesByName(String name) {
+        return heroRepository.findAllByNameContaining(name)
+            .stream()
+            .map(heroMapper::heroToDtoResponse)
+            .collect(Collectors.toList());
+    }
 }
