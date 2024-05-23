@@ -58,6 +58,14 @@ public class HeroServiceTest {
 
         Assertions.assertEquals(heroDto.name(), heroResponseDto.name());
         Assertions.assertEquals(heroDto.city(), heroResponseDto.city());
-        
+     
+        Mockito.verify(heroMapper, Mockito.times(1))
+            .dtoToHero(heroDto);
+
+        Mockito.verify(heroRepository, Mockito.times(1))
+            .save(hero);
+
+        Mockito.verify(heroMapper, Mockito.times(1))
+            .heroToDtoResponse(savedHero);
     }
 }
