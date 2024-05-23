@@ -20,8 +20,8 @@ public class HeroService {
 
     public HeroResponseDto createHero(HeroDto heroDto) {
         var hero = heroMapper.dtoToHero(heroDto);
-        heroRepository.save(hero);
-        return heroMapper.heroToDtoResponse(hero);
+        var savedHero = heroRepository.save(hero);
+        return heroMapper.heroToDtoResponse(savedHero);
     }
 
     public String deleteHeroById(Integer id) {
