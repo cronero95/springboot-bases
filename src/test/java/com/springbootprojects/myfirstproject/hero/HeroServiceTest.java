@@ -133,4 +133,35 @@ public class HeroServiceTest {
         Mockito.verify(heroRepository, Mockito.times(1))
             .findById(id);
     }
+
+    @Test
+    public void should_find_a_hero_by_name() {
+        String name = "man";
+
+        Hero hero_01 = new Hero();
+        hero_01.setName("Superman");
+        hero_01.setCity("Metropolis");
+        hero_01.setId(1);
+
+        Hero hero_02 = new Hero();
+        hero_02.setName("Spiderman");
+        hero_02.setCity("New York City");
+        hero_02.setId(2);
+
+        List<Hero> heroes = new ArrayList<>();
+        heroes.add(hero_01);
+        heroes.add(hero_02);
+
+        Mockito.when(heroRepository.findAllByNameContaining(name))
+            .thenReturn(heroes);
+        
+        Mockito.when(heroMapper.heroToDtoResponse(ArgumentMatchers.any(Hero.class)))
+            .thenReturn(new HeroResponseDto("any", "any"));
+
+        List<HeroResponseDto> heroResponseDtos = heroService.findHeroesByName(name);
+
+        Assertions.assertEquals(heroes.size(), heroResponseDtos.size());
+        Mockito.verify(heroRepository, Mockito.times(1))
+            .findAllByNameContaining(name);
+    }
 }
