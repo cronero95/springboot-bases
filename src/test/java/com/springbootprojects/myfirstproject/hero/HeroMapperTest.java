@@ -31,9 +31,13 @@ public class HeroMapperTest {
     
     @Test
     public void should_throw_null_pointer_exception_when_heroDto_is_null() {
-        Assertions.assertThrows(
+        var exception = Assertions.assertThrows(
             NullPointerException.class, 
             ()-> heroMapper.dtoToHero(null)
+        );
+
+        Assertions.assertEquals(
+            "The heroDto should not be null", exception.getMessage()
         );
     }
 
