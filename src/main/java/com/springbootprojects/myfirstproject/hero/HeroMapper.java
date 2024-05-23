@@ -10,7 +10,7 @@ public class HeroMapper {
     public Hero dtoToHero(HeroDto heroDto) {
 
         if(heroDto == null) {
-            throw new NullPointerException("The heroDto is null");
+            throw new NullPointerException("The heroDto should not be null");
         }
 
         var hero = new Hero();
